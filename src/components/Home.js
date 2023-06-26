@@ -4,6 +4,7 @@ import './home.css';
 function Home() {
 
   const [currentTime, setCurrentTime] = useState(0);
+  const [links, setLinks] = useState("");
 
   function sayHi(e){
     e.preventDefault();
@@ -18,9 +19,19 @@ function Home() {
       let time = results.time;
       setCurrentTime(time);
     }
+
+    const fetchLinks = async () => {
+      const response = await fetch('/links');
+      console.log(await response.json());
+      // const results = await response.json();
+
+      // console.log(results);
+      // setCurrentTime(time);
+    }
+
     try {
       fetchTime();
-
+      fetchLinks();
     } catch (error) {
       throw(error);
     }
