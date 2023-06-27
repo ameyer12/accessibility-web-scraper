@@ -1,0 +1,18 @@
+.info-button {
+    background: rgba(0,0,0,0);
+    border: none;
+    margin-right: 1%;
+}
+
+.info-button:hover {
+    background-color: darkgrey;
+}
+
+.info-icon {
+    color: black;
+    font-size: 25pt;
+}
+
+.navbar-logo {
+    margin-left: 1%;
+}

@@ -4,47 +4,74 @@ import './home.css';
 function Home() {
 
   const [currentTime, setCurrentTime] = useState(0);
-  const [links, setLinks] = useState("");
+  const [inputLink, setInputLink] = useState("");
+  const [resultLinks, setResultLinks] = useState({});
 
-  function sayHi(e){
-    e.preventDefault();
-    console.log("hi");
+  const fetchTime = async () => {
+    const response = await fetch('/time');
+    const results = await response.json();
+
+    let time = results.time;
+    setCurrentTime(time);
+  }
+
+  const fetchLinks = async (inputLink) => {
+    const response = await fetch(`/links?inputLink=${encodeURIComponent(inputLink)}`);
+    const results = await response.json();
+    
+    setResultLinks(results);
+    console.log(resultLinks)
   }
 
   useEffect(() => {
-    const fetchTime = async () => {
-      const response = await fetch('/time');
-      const results = await response.json();
-
-      let time = results.time;
-      setCurrentTime(time);
-    }
-
-    const fetchLinks = async () => {
-      const response = await fetch('/links');
-      console.log(await response.json());
-      // const results = await response.json();
-
-      // console.log(results);
-      // setCurrentTime(time);
-    }
-
     try {
       fetchTime();
-      fetchLinks();
     } catch (error) {
       throw(error);
     }
   }, [])
 
   return (
-    <div className="App">
+    <div className="homepage">
       <h1>Hello, World!</h1>
-      <button onClick={
-        sayHi
-        }>Click me</button>
       <p>Current time: {currentTime}</p>
-    </div>
+      <div className="input-group mb-3">
+        <input 
+          type="text" 
+          className="form-control" 
+          placeholder="Enter Link" 
+          aria-label="User's Input Link" 
+          aria-describedby="basic-addon2"
+          onChange={(ev) => {
+            ev.preventDefault();
+            setInputLink(ev.target.value);
+          }}
+          />
+      <div className="input-group-append">
+        <button 
+        className="btn btn-outline-secondary" 
+        type="button"
+        onClick={(ev) => {
+          ev.preventDefault();
+          fetchLinks(inputLink);
+        }}
+        >Button</button>
+      </div>
+      </div>
+      <div>
+        { Object.keys(resultLinks).map((index) => {
+            let resultLink = resultLinks[index];
+
+            if(typeof(resultLink) === "string" && resultLink.includes("http")){
+              return <p key={index}>{resultLink}</p>
+            } else {
+              return null;
+            }
+
+          })
+        }
+      </div>
+  </div>
   );
 }
 
