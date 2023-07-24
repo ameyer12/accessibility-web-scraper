@@ -162,7 +162,7 @@ def automateSearch(link):
         return results  # Return empty results or add a specific flag to indicate the error
     finally:
         # Close the webdriver
-        browser.close()
+        browser.quit()
     print(results)
     # Return results object
     return results
