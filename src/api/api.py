@@ -61,7 +61,7 @@ def automateSearch(link):
     }
     # Setting webdriver options to prevent immediate closing of the page
     options = webdriver.ChromeOptions()
-    options.binary_location = '/Users/AustinTheGOAT/accessibility-web-scraper/src/api/chromedriver'
+    options.binary_location = '/Users/AustinTheGOAT/Downloads/chromedriver_mac_arm64'
     options.add_argument("--headless")
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
