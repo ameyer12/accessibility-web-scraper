@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
 import concurrent.futures
 from urllib.parse import urlparse
 import pandas as pd
@@ -72,10 +73,8 @@ def automateSearch(link):
     options.add_argument("--enable-network-cache=true")
     options.add_argument("--page-load-strategy=none") 
 
-    chrome_driver_path = 'src/api/drivers/chromedriver'
-
     # Variable for webdriver browser
-    browser = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
+    browser = webdriver.Chrome(options=options)
 
     # Making initial get request to WAVE website
     browser.get("https://wave.webaim.org")
