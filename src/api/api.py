@@ -72,8 +72,10 @@ def automateSearch(link):
     options.add_argument("--enable-network-cache=true")
     options.add_argument("--page-load-strategy=none") 
 
+    chrome_driver_path = 'src/api/drivers/chromedriver'
+
     # Variable for webdriver browser
-    browser = webdriver.Chrome(options=options)
+    browser = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
 
     # Making initial get request to WAVE website
     browser.get("https://wave.webaim.org")
