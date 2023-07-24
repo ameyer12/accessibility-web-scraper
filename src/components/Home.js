@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ProgressBar } from 'react-loader-spinner';
 import './home.css';
-import { Button } from 'bootstrap';
 
 function Home() {
 
   const [currentTime, setCurrentTime] = useState(0);
   const [inputLink, setInputLink] = useState("");
-  const [resultLinks, setResultLinks] = useState({});
   const [loading, setLoading] = useState(false);
   const [resultsReturned, setResultsReturned] = useState(false)
 
@@ -18,21 +16,6 @@ function Home() {
     let time = results.time;
     setCurrentTime(time);
   }
-
-  // const fetchLinks = async (inputLink) => {
-  //   const response = await fetch(`/links?inputLink=${encodeURIComponent(inputLink)}`);
-  //   const results = await response.json();
-    
-  //   setResultLinks(results);
-  //   // console.log(resultLinks)
-  // }
-
-  // const initiateAutomation = async (inputHostname) => {
-  //   const response = await fetch(`/automatechrome?inputLink=${encodeURIComponent(inputLink)}&inputHostname=${encodeURIComponent(inputHostname)}`);
-  //   const results = await response.json();
-
-  //   console.log(results);
-  // }
 
   const initiateCheckAllLinks = async (inputLink) => {
     try {
