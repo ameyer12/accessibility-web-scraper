@@ -15,12 +15,8 @@ import xlsxwriter
 import os
 import io
 
-
 app = Flask(__name__)
-CORS(app, origins="https://accessibility-web-scraper-server.onrender.com")
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+CORS(app, origins="http://localhost:3000")
 
 @app.route('/time')
 def getCurrentTime():
@@ -194,10 +190,6 @@ def checkAllLinks():
                 print(f"Accessibility checked for {future}")
             except Exception as exc:
                 print(f"Accessibility check for {future} generated an exception: {exc}")
-    # print(waveResults)
-    finish = time.perf_counter()
-    print(f"Finished in {round(finish-start, 2)} second(s)")
-    # generateExelFile(waveResults)
     return {"waveResults": waveResults} 
 
 def cleanLink(link):
@@ -275,5 +267,5 @@ def generateExelFile():
 
     return response
 
-
-# print(f"Finished in {round(finish-start, 2)} second(s)")
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)

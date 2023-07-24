@@ -10,8 +10,9 @@ function Home() {
   const [resultsReturned, setResultsReturned] = useState(false)
 
   const fetchTime = async () => {
-    const response = await fetch('/time');
+    const response = await fetch('https://accessibility-web-scraper-server.onrender.com/time');
     const results = await response.json();
+    console.log(results)
 
     let time = results.time;
     setCurrentTime(time);
