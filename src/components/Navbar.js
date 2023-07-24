@@ -1,10 +1,10 @@
 import "./navbar.css";
-import logo from "./media/Austin Meyer Logo (1).png"
+import logo from "./media/accessibility logo (1).png"
 
 function Navbar() {
     return (
-        <nav className="navbar navbar-light bg-light">
-            <a className="navbar-logo navbar-brand" href="/"><img src={logo} width="60" height="60" alt="logo" /></a>
+        <nav className="navbar navbar-light bg-dark">
+            <a className="navbar-logo navbar-brand" href="/"><img src={logo} width="100" height="95" alt="logo" /></a>
             <button type="button" className="info-button btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"><span className="info-icon material-symbols-outlined">info</span></button>
             <div className="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -14,10 +14,13 @@ function Navbar() {
                     </div>
                     <div className="modal-body">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.
+                        The Accessibility Web Scraper is a solution to automate the process of searching URLs using the WAVE Web Accessibility Evaluation tool. 
+                        The idea for the project arose from the tedious and time-consuming process of manually checking every URL associated with a website, 
+                        and the goal is to save developers, designers, and website managers time and promote frequent web accessibility audits.
+                        <br></br>
+                        <br></br>
+                        Simply enter a URL into the search bar, and the application will automate WAVE searches on all associated links and generate an 
+                        Excel file with errors, contrast errors, and alerts from the details tab of WAVE’s Web Accessibility Evaluation tool.
                     </p>
                     </div>
                     <div className="modal-footer">

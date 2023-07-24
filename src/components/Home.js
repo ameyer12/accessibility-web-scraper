@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
+import { ProgressBar } from 'react-loader-spinner';
 import './home.css';
+import { Button } from 'bootstrap';
 
 function Home() {
 
   const [currentTime, setCurrentTime] = useState(0);
   const [inputLink, setInputLink] = useState("");
   const [resultLinks, setResultLinks] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [resultsReturned, setResultsReturned] = useState(false)
 
   const fetchTime = async () => {
     const response = await fetch('/time');
@@ -15,12 +19,60 @@ function Home() {
     setCurrentTime(time);
   }
 
-  const fetchLinks = async (inputLink) => {
-    const response = await fetch(`/links?inputLink=${encodeURIComponent(inputLink)}`);
-    const results = await response.json();
+  // const fetchLinks = async (inputLink) => {
+  //   const response = await fetch(`/links?inputLink=${encodeURIComponent(inputLink)}`);
+  //   const results = await response.json();
     
-    setResultLinks(results);
-    console.log(resultLinks)
+  //   setResultLinks(results);
+  //   // console.log(resultLinks)
+  // }
+
+  // const initiateAutomation = async (inputHostname) => {
+  //   const response = await fetch(`/automatechrome?inputLink=${encodeURIComponent(inputLink)}&inputHostname=${encodeURIComponent(inputHostname)}`);
+  //   const results = await response.json();
+
+  //   console.log(results);
+  // }
+
+  const initiateCheckAllLinks = async (inputLink) => {
+    try {
+      setLoading(true)
+      const response = await fetch(`/checkalllinks?inputLink=${encodeURIComponent(inputLink)}`);
+      const results = await response.json();
+      
+      console.log(results);
+      setLoading(false);
+      setResultsReturned(true);
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  const getResultsFile = async () => {
+    try {
+      const response = await fetch(`/generateExcelFile`, {
+          method: 'POST',
+      });
+
+      // Convert the response to a Blob to handle the file download
+      const blob = await response.blob();
+
+      // Create a URL for the Blob to trigger the download
+      const url = URL.createObjectURL(blob);
+
+      // Create an anchor element and trigger the download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'results.xlsx';
+      a.click();
+
+      // Clean up the URL and revoke the object URL to free up memory
+      URL.revokeObjectURL(url);
+
+      setResultsReturned(false);
+    } catch(error) {
+      throw error;
+    }
   }
 
   useEffect(() => {
@@ -33,8 +85,8 @@ function Home() {
 
   return (
     <div className="homepage">
-      <h1>Hello, World!</h1>
-      <p>Current time: {currentTime}</p>
+      <h1>Check your links here!</h1>
+      <p>Current date & time: {currentTime}</p>
       <div className="input-group mb-3">
         <input 
           type="text" 
@@ -53,23 +105,27 @@ function Home() {
         type="button"
         onClick={(ev) => {
           ev.preventDefault();
-          fetchLinks(inputLink);
+          initiateCheckAllLinks(inputLink);
         }}
-        >Button</button>
+        >Submit</button>
       </div>
       </div>
       <div>
-        { Object.keys(resultLinks).map((index) => {
-            let resultLink = resultLinks[index];
-
-            if(typeof(resultLink) === "string" && resultLink.includes("http")){
-              return <p key={index}>{resultLink}</p>
-            } else {
-              return null;
-            }
-
-          })
-        }
+        {loading ? (<ProgressBar
+                      height="80"
+                      width="80"
+                      ariaLabel="progress-bar-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="progress-bar-wrapper"
+                      borderColor = 'black'
+                      barColor = 'green'
+                    />) : ""}
+        {resultsReturned ? (<button 
+                              class="btn"
+                              onClick={
+                                getResultsFile
+                              }
+                            >Download</button>) : ""}
       </div>
   </div>
   );
