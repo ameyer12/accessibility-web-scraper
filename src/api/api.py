@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 import concurrent.futures
 from urllib.parse import urlparse
 import pandas as pd
@@ -60,7 +61,7 @@ def automateSearch(link):
             "alert_descriptions": [],
         },
     }
-    # Setting webdriver options to prevent immediate closing of the page
+    # Setting webdriver options
     options = webdriver.ChromeOptions()
     options.binary_location = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     options.add_argument("--headless")
@@ -73,8 +74,10 @@ def automateSearch(link):
     options.add_argument("--enable-network-cache=true")
     options.add_argument("--page-load-strategy=none") 
 
+    # Setting executable path
+    service = Service(ChromeDriverManager().install())
     # Variable for webdriver browser
-    browser = webdriver.Chrome(options=options)
+    browser = webdriver.Chrome(service=service, options=options)
 
     # Making initial get request to WAVE website
     browser.get("https://wave.webaim.org")
