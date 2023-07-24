@@ -11,7 +11,6 @@ from selenium.webdriver.common.keys import Keys
 import concurrent.futures
 from urllib.parse import urlparse
 import pandas as pd
-import numpy as np
 import xlsxwriter
 import os
 import io
