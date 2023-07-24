@@ -21,7 +21,7 @@ function Home() {
   const initiateCheckAllLinks = async (inputLink) => {
     try {
       setLoading(true)
-      const response = await fetch(`/checkalllinks?inputLink=${encodeURIComponent(inputLink)}`);
+      const response = await fetch(`https://accessibility-web-scraper-server.onrender.com/time/checkalllinks?inputLink=${encodeURIComponent(inputLink)}`);
       const results = await response.json();
       
       console.log(results);
