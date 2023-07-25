@@ -15,7 +15,6 @@ Flask-Cors==4.0.0
 Flask-Login==0.6.2
 flask-marshmallow==0.15.0
 Flask-SQLAlchemy==3.0.5
-gevent==23.7.0
 greenlet==2.0.2
 gunicorn==21.2.0
 h11==0.14.0
