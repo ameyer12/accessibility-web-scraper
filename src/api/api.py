@@ -16,7 +16,6 @@ import pandas as pd
 import xlsxwriter
 import os
 import io
-import threading
 
 app = Flask(__name__)
 CORS(app, origins="http://localhost:3000")
@@ -46,33 +45,6 @@ def getLinks(inputLink):
     linkResultsSet = set(linkResults.values())
     return list(linkResultsSet)
 
-thread_local = threading.local()
-
-def get_thread_local_driver():
-    """
-    Create and return a thread-local ChromeDriver instance.
-    If an instance already exists for the current thread, it will be returned.
-    """
-    if not hasattr(thread_local, "driver"):
-        options = webdriver.ChromeOptions()
-        options.binary_location = os.environ.get("/Applications/your_path/Google Chrome.app/Contents/MacOS/Google Chrome")
-        options.add_argument("--headless")
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument("--disable-extensions")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--disable-infobars")
-        options.add_argument("--disable-popup-blocking")
-        options.add_argument("--enable-network-cache=true")
-        options.add_argument("--page-load-strategy=none")
-
-        # Create the ChromeDriver instance for the current thread
-        service = Service()
-        thread_local.driver = webdriver.Chrome(service=service, options=options)
-
-    # Return the driver instance
-    return thread_local.driver
-
 def automateSearch(link):
     results = {
         "link": link,
@@ -89,24 +61,24 @@ def automateSearch(link):
             "alert_descriptions": [],
         },
     }
-    # # Setting webdriver options
-    # options = webdriver.ChromeOptions()
-    # options.binary_location = os.environ.get("/Applications/your_path/Google Chrome.app/Contents/MacOS/Google Chrome")
-    # options.add_argument("--headless")
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument("--disable-extensions")
-    # options.add_argument("--disable-gpu")
-    # options.add_argument("--disable-infobars")      
-    # options.add_argument("--disable-popup-blocking")
-    # options.add_argument("--enable-network-cache=true")
-    # options.add_argument("--page-load-strategy=none") 
+    # Setting webdriver options
+    options = webdriver.ChromeOptions()
+    options.binary_location = os.environ.get("/Applications/your_path/Google Chrome.app/Contents/MacOS/Google Chrome")
+    options.add_argument("--headless")
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-infobars")      
+    options.add_argument("--disable-popup-blocking")
+    options.add_argument("--enable-network-cache=true")
+    options.add_argument("--page-load-strategy=none") 
 
-    # # # Setting executable path
-    # # service = Service(ChromeDriverManager().install())
-    # service = Service()
+    # # Setting executable path
+    # service = Service(ChromeDriverManager().install())
+    service = Service()
     # Variable for webdriver browser
-    browser = get_thread_local_driver()
+    browser = webdriver.Chrome(service=service, options=options)
 
     # Making initial get request to WAVE website
     browser.get("https://wave.webaim.org")
@@ -205,7 +177,7 @@ def checkAllLinks():
     start = time.perf_counter()
     global waveResults
     waveResults = []
-    worker_num = 7
+    worker_num = 1
 
     inputLink = request.args.get('inputLink')
     
