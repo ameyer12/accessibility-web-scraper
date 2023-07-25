@@ -1,4 +1,4 @@
 import gevent.monkey
 gevent.monkey.patch_all()
 
-workers = 5
+workers = 7
