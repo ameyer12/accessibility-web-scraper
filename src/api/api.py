@@ -74,8 +74,9 @@ def automateSearch(link):
     options.add_argument("--enable-network-cache=true")
     options.add_argument("--page-load-strategy=none") 
 
-    # Setting executable path
-    service = Service(ChromeDriverManager().install())
+    # # Setting executable path
+    # service = Service(ChromeDriverManager().install())
+    service = Service()
     # Variable for webdriver browser
     browser = webdriver.Chrome(service=service, options=options)
 
