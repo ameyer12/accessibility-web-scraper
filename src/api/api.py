@@ -183,7 +183,7 @@ def checkAllLinks():
     
     links = getLinks(inputLink)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=worker_num) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=worker_num) as executor:
         # Submit tasks for each link to be evaluated
         futures = [executor.submit(automateSearch, link) for link in links]
         print(futures)
