@@ -46,7 +46,6 @@ def getLinks(inputLink):
     return list(linkResultsSet)
 
 def automateSearch(link):
-    time.sleep(1)
     results = {
         "link": link,
         "errors": {
@@ -253,6 +252,7 @@ def generateExelFile():
     try:
         # Loop over the results and generate an Excel file
         for link in waveResults:
+            print(link)
             generateSheet(writer, link)
     except Exception as e:
         print(e)
