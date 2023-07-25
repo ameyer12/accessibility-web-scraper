@@ -68,7 +68,7 @@ def get_thread_local_driver():
 
         # Create the ChromeDriver instance for the current thread
         service = Service()
-        thread_local.browser = webdriver.Chrome(service=service, options=options)
+        thread_local.driver = webdriver.Chrome(service=service, options=options)
 
 def automateSearch(link):
     results = {
