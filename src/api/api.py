@@ -62,10 +62,6 @@ def automateSearch(link):
         },
     }
 
-    # Create a unique temporary directory for this link
-    temp_dir = os.path.join(os.getcwd(), f"temp_chromedriver_{link}")
-    os.makedirs(temp_dir, exist_ok=True)
-
     # Setting webdriver options
     options = webdriver.ChromeOptions()
     options.binary_location = os.environ.get("/Applications/your_path/Google Chrome.app/Contents/MacOS/Google Chrome")
@@ -79,13 +75,8 @@ def automateSearch(link):
     options.add_argument("--enable-network-cache=true")
     options.add_argument("--page-load-strategy=none") 
 
-    # Use ChromeDriverManager to download the chromedriver to the temporary directory
-    chromedriver_path = ChromeDriverManager(path=temp_dir).install()
-    print(f"Chromedriver downloaded to {chromedriver_path}")
-
     # # Setting executable path
-    service = Service(chromedriver_path)
-    # service = Service()
+    service = Service()
     # Variable for webdriver browser
     browser = webdriver.Chrome(service=service, options=options)
 
@@ -176,7 +167,6 @@ def automateSearch(link):
     finally:
         # Close the webdriver
         browser.quit()
-        os.rmdir(temp_dir)
     print(results)
     # Return results object
     return results
@@ -187,7 +177,7 @@ def checkAllLinks():
     start = time.perf_counter()
     global waveResults
     waveResults = []
-    worker_num = 7
+    worker_num = 1
 
     inputLink = request.args.get('inputLink')
     
