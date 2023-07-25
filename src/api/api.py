@@ -90,7 +90,7 @@ def automateSearch(link):
 
     try:
         # Wait to ensure the page is loaded before parsing the HTML
-        wait = WebDriverWait(browser, 300)
+        wait = WebDriverWait(browser, 150)
         wait.until(EC.invisibility_of_element_located((By.ID, "wave5_loading")))
 
         # Click on details tab
