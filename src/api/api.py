@@ -178,7 +178,7 @@ def checkAllLinks():
     start = time.perf_counter()
     global waveResults
     waveResults = []
-    worker_num = 1
+    worker_num = 7
 
     inputLink = request.args.get('inputLink')
     
