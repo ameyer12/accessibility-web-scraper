@@ -16,7 +16,6 @@ Flask-Login==0.6.2
 flask-marshmallow==0.15.0
 Flask-SQLAlchemy==3.0.5
 greenlet==2.0.2
-gevent==23.7.0
 gunicorn==21.2.0
 h11==0.14.0
 html5lib==1.1
