@@ -46,6 +46,7 @@ def getLinks(inputLink):
     return list(linkResultsSet)
 
 def automateSearch(link):
+    time.sleep(1)
     results = {
         "link": link,
         "errors": {
