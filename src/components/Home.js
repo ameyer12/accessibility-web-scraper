@@ -34,7 +34,7 @@ function Home() {
 
   const getResultsFile = async () => {
     try {
-      const response = await fetch(`/generateExcelFile`, {
+      const response = await fetch(`https://accessibility-web-scraper-server.onrender.com/generateExcelFile`, {
           method: 'POST',
       });
 
