@@ -70,6 +70,9 @@ def get_thread_local_driver():
         service = Service()
         thread_local.driver = webdriver.Chrome(service=service, options=options)
 
+    # Return the driver instance
+    return thread_local.driver
+
 def automateSearch(link):
     results = {
         "link": link,
