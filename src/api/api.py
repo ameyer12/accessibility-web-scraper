@@ -16,7 +16,7 @@ import pandas as pd
 import xlsxwriter
 import os
 import io
-import gevent
+import threading
 
 app = Flask(__name__)
 CORS(app, origins="http://localhost:3000")
@@ -45,6 +45,30 @@ def getLinks(inputLink):
             i+=1
     linkResultsSet = set(linkResults.values())
     return list(linkResultsSet)
+
+thread_local = threading.local()
+
+def get_thread_local_driver():
+    """
+    Create and return a thread-local ChromeDriver instance.
+    If an instance already exists for the current thread, it will be returned.
+    """
+    if not hasattr(thread_local, "driver"):
+        options = webdriver.ChromeOptions()
+        options.binary_location = os.environ.get("/Applications/your_path/Google Chrome.app/Contents/MacOS/Google Chrome")
+        options.add_argument("--headless")
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-infobars")
+        options.add_argument("--disable-popup-blocking")
+        options.add_argument("--enable-network-cache=true")
+        options.add_argument("--page-load-strategy=none")
+
+        # Create the ChromeDriver instance for the current thread
+        service = Service()
+        thread_local.browser = webdriver.Chrome(service=service, options=options)
 
 def automateSearch(link):
     results = {
@@ -276,4 +300,4 @@ def generateExelFile():
     return response
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, worker_class = gevent)
+    app.run(debug=True, port=5000)
