@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ProgressBar } from 'react-loader-spinner';
+import Swal from 'sweetalert2';
 import './home.css';
 
 function Home() {
@@ -9,26 +10,58 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [resultsReturned, setResultsReturned] = useState(false)
 
-  const fetchTime = async () => {
-    const response = await fetch('https://accessibility-web-scraper-server.onrender.com/time');
-    const results = await response.json();
-    console.log(results)
+  const isValidHttpUrl = (string) => {
+    let url;
+    
+    try {
+      url = new URL(string);
+    } catch (_) {
+      console.log(string)
+      return false;  
+    }
+  
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
 
-    let time = results.time;
-    setCurrentTime(time);
+  const fetchTime = async () => {
+    try{
+      const response = await fetch('https://accessibility-web-scraper-server.onrender.com/time');
+      const results = await response.json();
+  
+      let time = results.time;
+      setCurrentTime(time);
+    } catch(error) {
+        Swal.fire({
+          title: "Failed to load current time",
+          text: "Wait a few seconds and refresh the page"
+        }); 
+    }
   }
 
   const initiateCheckAllLinks = async (inputLink) => {
     try {
+      if(isValidHttpUrl(inputLink) === false){
+        Swal.fire({
+          title: "Automation failed",
+          text: "Please enter a valid URL"
+        });
+        return
+      }
+
+      setResultsReturned(false);
       setLoading(true)
       const response = await fetch(`https://accessibility-web-scraper-server.onrender.com/checkalllinks?inputLink=${encodeURIComponent(inputLink)}`);
       const results = await response.json();
       
-      console.log(results);
       setLoading(false);
       setResultsReturned(true);
     } catch(error) {
-      throw error;
+        Swal.fire({
+          title: "Automation failed",
+          text: "Re-enter URL and try again"
+        });
+        setLoading(false);
+        setResultsReturned(false);
     }
   }
 
@@ -55,7 +88,10 @@ function Home() {
 
       setResultsReturned(false);
     } catch(error) {
-      throw error;
+        Swal.fire({
+          title: "Failed to generate file",
+          text: "Try again"
+        });
     }
   }
 
@@ -69,7 +105,7 @@ function Home() {
 
   return (
     <div className="homepage">
-      <h1>Check your links here!</h1>
+      <h1>Input a URL:</h1>
       <p>Current date & time: {currentTime}</p>
       <div className="input-group mb-3">
         <input 
@@ -105,7 +141,7 @@ function Home() {
                       barColor = 'green'
                     />) : ""}
         {resultsReturned ? (<button 
-                              class="btn"
+                              class="btn download-button"
                               onClick={
                                 getResultsFile
                               }

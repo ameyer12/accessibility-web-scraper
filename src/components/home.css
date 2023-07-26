@@ -13,3 +13,6 @@ h1 {
     width: 50%;
 }
 
+.download-button {
+    border: 1pt solid black;
+}
