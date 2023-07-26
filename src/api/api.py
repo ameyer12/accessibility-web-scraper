@@ -18,7 +18,7 @@ import os
 import io
 
 app = Flask(__name__)
-CORS(app, origins="http://localhost:3000")
+CORS(app, origins="https://accessibility-web-scraper.netlify.app/")
 
 @app.route('/time')
 def getCurrentTime():
