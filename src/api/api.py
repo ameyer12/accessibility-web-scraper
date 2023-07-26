@@ -43,6 +43,7 @@ def getLinks(inputLink):
             linkResults[i] = link
             i+=1
     linkResultsSet = set(linkResults.values())
+    linkResultsSet.add(inputLink)
     return list(linkResultsSet)
 
 def automateSearch(link):
@@ -252,10 +253,8 @@ def generateExelFile():
     try:
         # Loop over the results and generate an Excel file
         for link in waveResults:
-            print(link)
             generateSheet(writer, link)
     except Exception as e:
-        print(e)
         return {"message": "Error occurred while generating Excel file"}
 
     # Close the writer
