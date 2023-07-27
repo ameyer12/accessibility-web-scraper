@@ -9,9 +9,9 @@ function Navbar() {
                     <li className="nav-item dropdown">
                         <a className="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="info-icon material-symbols-outlined">info</span></a>
                         <div className="dropdown-menu position-absolute" aria-labelledby="navbarDropdown">
-                        <a className="info-button dropdown-item" data-bs-toggle="modal" data-bs-target="#modal1">Project Overview</a>
-                        <a className="info-button dropdown-item" data-bs-toggle="modal" data-bs-target="#modal2">WAVE Overview</a>
-                        <a className="info-button dropdown-item" data-bs-toggle="modal" data-bs-target="#modal3">How to Use</a>
+                        <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal1">Project Overview</a>
+                        <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal2">WAVE Overview</a>
+                        <a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal3">How to Use</a>
                         </div>
                     </li>
                 </ul>

@@ -4,12 +4,9 @@
     margin-right: 1%;
 }
 
-/* .info-button:hover {
-    background-color: darkgrey;
-} */
-
 .info-icon {
     font-size: 25pt;
+    color: white;
 }
 
 .navbar-logo {
