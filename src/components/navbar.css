@@ -4,9 +4,9 @@
     margin-right: 1%;
 }
 
-.info-button:hover {
+/* .info-button:hover {
     background-color: darkgrey;
-}
+} */
 
 .info-icon {
     font-size: 25pt;
@@ -14,4 +14,24 @@
 
 .navbar-logo {
     margin-left: 1%;
+}
+
+.info-button {
+    margin-right: 2%;
+}
+
+.nav-link {
+    margin-right: 3rem;
+}
+
+.nav-link:hover {
+    background-color: darkgray;
+}
+
+.dropdown-menu {
+    margin-left: -115% !important;
+}
+
+.dropdown-item:hover {
+    cursor: pointer;
 }
