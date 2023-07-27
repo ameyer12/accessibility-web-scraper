@@ -19,7 +19,7 @@ function Navbar() {
                 <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Accessibility Web Scraper</h5>
+                    <h5 className="modal-title" id="exampleModalLabel">Project Overview</h5>
                     </div>
                     <div className="modal-body">
                     <p>

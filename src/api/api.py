@@ -175,7 +175,6 @@ def automateSearch(link):
 
 @app.route('/checkalllinks')
 def checkAllLinks():
-    start = time.perf_counter()
     global waveResults
     waveResults = []
     worker_num = 1
@@ -187,14 +186,14 @@ def checkAllLinks():
     with concurrent.futures.ThreadPoolExecutor(max_workers=worker_num) as executor:
         # Submit tasks for each link to be evaluated
         futures = [executor.submit(automateSearch, link) for link in links]
-        print(futures)
+        # print(futures)
 
         # Retrieve results as they become available
         for future in concurrent.futures.as_completed(futures):
             try:
                 result = future.result()
                 waveResults.append(result)
-                print(f"Accessibility checked for {future}")
+                # print(f"Accessibility checked for {future}")
             except Exception as exc:
                 print(f"Accessibility check for {future} generated an exception: {exc}")
     return {"waveResults": waveResults} 
